@@ -1,0 +1,52 @@
+[project]
+name = "multimodal"
+version = "0.1.0"
+description = "LLM/VLM training on dgx spark"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  # Core
+  "torch>=2.6.0",
+  "transformers>=4.40.0",
+  "datasets>=2.19.0",
+  "accelerate>=0.30.0",
+
+  # HF / checkpointing
+  "huggingface_hub>=0.23.0",
+  "safetensors>=0.4.0",
+
+  # VLM basics
+  "pillow>=10.0.0",
+
+  # Config / UX
+  "pyyaml>=6.0",
+  "pydantic>=2.0.0",
+  "pydantic-settings>=2.0.0",
+  "rich>=13.0.0",
+  "tqdm>=4.66.0",
+]
+
+[project.optional-dependencies]
+train = [
+  "wandb>=0.17.0",
+  "liger-kernel>=0.5.10",
+]
+dev = [
+  "pytest>=8.0.0",
+  "ruff>=0.4.0",
+  "pre-commit>=3.7.0",
+  "ipykernel>=6.29.0",
+]
+inference = [
+  "vllm",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/multimodal"]
